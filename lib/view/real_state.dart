@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_s/responsive_s.dart';
 import 'package:state_business/provider/real_state_provider.dart';
-import 'package:state_business/server/state_buisness_server.dart';
 import 'package:state_business/utils/flat_options.dart';
 import 'package:state_business/utils/theme.dart';
 import 'package:state_business/widget/conditional_widget.dart';
@@ -35,13 +34,11 @@ class _FlatPageState extends State<FlatPage> {
   void _onSubmitted() {
     _provider.state.data['date'] = _provider.state.addCurrentDate();
     if (_provider.state.validate()) {
-      StateBusinessServer server = StateBusinessServer(
-          route:
-              '${_provider.selectedState}/${_provider.openBusiness}/${_provider.selectedContracting}/${_provider.state.data['country']}/${_provider.state.data['city']}');
-      server.pushData( _provider.state.data);
+      _provider.canEdit = true;
+      Navigator.of(context).pushReplacementNamed('review');
+
     }
-    _provider.canEdit = true;
-    Navigator.of(context).pushReplacementNamed('review');
+
   }
 
   @override

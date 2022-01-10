@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_s/responsive_s.dart';
 import 'package:state_business/provider/real_state_provider.dart';
+import 'package:state_business/server/state_buisness_server.dart';
 import 'package:state_business/utils/theme.dart';
 import 'package:state_business/widget/backbuttonorange.dart';
 import 'package:state_business/widget/carousel_slider.dart';
@@ -16,9 +17,7 @@ class Review extends StatefulWidget {
   _ReviewState createState() => _ReviewState();
 }
 
-void _onSubmitted(context) {
-  Navigator.of(context).pushNamed('result');
-}
+
 
 class _ReviewState extends State<Review> {
   late Responsive _responsive;
@@ -35,6 +34,13 @@ class _ReviewState extends State<Review> {
       removePadding: true,
     );
     _provider = Provider.of<RealStateProvider>(context);
+  }
+  void _onSubmitted() {
+    StateBusinessServer server = StateBusinessServer(
+        route:
+        '${_provider.selectedState}/${_provider.openBusiness}/${_provider.selectedContracting}/${_provider.state.data['country']}/${_provider.state.data['city']}');
+    server.pushData( _provider.state.data);
+    Navigator.of(context).pushNamed('result');
   }
 
   @override
@@ -453,9 +459,7 @@ class _ReviewState extends State<Review> {
                     ),
                     _verticalSpacer(responsive: _responsive),
                     InkWell(
-                      onTap: (){
-                        _onSubmitted(context);
-                      },
+                      onTap: _onSubmitted,
                       child: TitleContainer(
                           height: 0.06,
                           width: 0.3,
