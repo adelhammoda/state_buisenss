@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_s/responsive_s.dart';
 import 'package:state_business/provider/real_state_provider.dart';
+import 'package:state_business/server/state_buisness_server.dart';
 import 'package:state_business/utils/flat_options.dart';
 import 'package:state_business/utils/theme.dart';
 import 'package:state_business/widget/conditional_widget.dart';
@@ -31,15 +32,16 @@ class _FlatPageState extends State<FlatPage> {
     _provider = Provider.of<RealStateProvider>(context);
   }
 
-  void _onSubmitted(){
-      _provider.state.data['date']=_provider.state.addCurrentDate();
-      if(_provider.state.validate()){
-
-
-      }
-      _provider.canEdit=true;
-      Navigator.of(context).pushReplacementNamed('review');
-
+  void _onSubmitted() {
+    _provider.state.data['date'] = _provider.state.addCurrentDate();
+    if (_provider.state.validate()) {
+      StateBusinessServer server = StateBusinessServer(
+          route:
+              '${_provider.selectedState}/${_provider.openBusiness}/${_provider.selectedContracting}/${_provider.state.data['country']}/${_provider.state.data['city']}');
+      server.pushData( _provider.state.data);
+    }
+    _provider.canEdit = true;
+    Navigator.of(context).pushReplacementNamed('review');
   }
 
   @override
@@ -335,8 +337,7 @@ class _FlatPageState extends State<FlatPage> {
                   _VerticalSpacer(_responsive),
                   // all expanded list 'number of rooms'
                   ConditionalWidget(
-                    paddingValue:
-                       0.1,
+                    paddingValue: 0.1,
                     condition: () => _dataKey.contains('numberOfRooms'),
                     trueCase: CustomExpandedTile(
                       radius: 7,
@@ -348,15 +349,15 @@ class _FlatPageState extends State<FlatPage> {
                           _provider.state.data['numberOfRooms'] = value;
                         });
                       },
-                      spacing: _responsive.responsiveWidth(forUnInitialDevices: 2),
+                      spacing:
+                          _responsive.responsiveWidth(forUnInitialDevices: 2),
                       title: 'Number of Room',
                       containerHeight: 0.05,
                     ),
                   ),
                   _VerticalSpacer(_responsive),
                   ConditionalWidget(
-                    paddingValue:
-                    0.1,
+                    paddingValue: 0.1,
                     condition: () => _dataKey.contains('age'),
                     trueCase: CustomExpandedTile(
                       radius: 7,
@@ -368,15 +369,15 @@ class _FlatPageState extends State<FlatPage> {
                           _provider.state.data['age'] = value;
                         });
                       },
-                      spacing: _responsive.responsiveWidth(forUnInitialDevices: 2),
+                      spacing:
+                          _responsive.responsiveWidth(forUnInitialDevices: 2),
                       title: 'Age',
                       containerHeight: 0.05,
                     ),
                   ),
                   _VerticalSpacer(_responsive),
                   ConditionalWidget(
-                    paddingValue:
-                    0.4,
+                    paddingValue: 0.4,
                     condition: () => _dataKey.contains('floorType'),
                     trueCase: CustomExpandedTile(
                       radius: 7,
@@ -389,15 +390,15 @@ class _FlatPageState extends State<FlatPage> {
                         });
                       },
                       fontSize: 14,
-                      spacing: _responsive.responsiveWidth(forUnInitialDevices: 2),
+                      spacing:
+                          _responsive.responsiveWidth(forUnInitialDevices: 2),
                       title: 'Floor Type',
                       containerHeight: 0.08,
                     ),
                   ),
                   _VerticalSpacer(_responsive),
                   ConditionalWidget(
-                    paddingValue:
-                    0.1,
+                    paddingValue: 0.1,
                     condition: () => _dataKey.contains('heating'),
                     trueCase: CustomExpandedTile(
                       radius: 7,
@@ -410,15 +411,15 @@ class _FlatPageState extends State<FlatPage> {
                         });
                       },
                       fontSize: 13,
-                      spacing: _responsive.responsiveWidth(forUnInitialDevices: 2),
+                      spacing:
+                          _responsive.responsiveWidth(forUnInitialDevices: 2),
                       title: 'heating',
                       containerHeight: 0.05,
                     ),
                   ),
                   _VerticalSpacer(_responsive),
                   ConditionalWidget(
-                    paddingValue:
-                    0.1,
+                    paddingValue: 0.1,
                     condition: () => _dataKey.contains('tabu'),
                     trueCase: CustomExpandedTile(
                       radius: 7,
@@ -431,15 +432,15 @@ class _FlatPageState extends State<FlatPage> {
                         });
                       },
                       fontSize: 13,
-                      spacing: _responsive.responsiveWidth(forUnInitialDevices: 2),
+                      spacing:
+                          _responsive.responsiveWidth(forUnInitialDevices: 2),
                       title: 'Tabu',
                       containerHeight: 0.05,
                     ),
                   ),
                   _VerticalSpacer(_responsive),
                   ConditionalWidget(
-                    paddingValue:
-                    0.1,
+                    paddingValue: 0.1,
                     condition: () => _dataKey.contains('from'),
                     trueCase: CustomExpandedTile(
                       radius: 7,
@@ -452,7 +453,8 @@ class _FlatPageState extends State<FlatPage> {
                           _provider.state.data['from'] = value;
                         });
                       },
-                      spacing: _responsive.responsiveWidth(forUnInitialDevices: 2),
+                      spacing:
+                          _responsive.responsiveWidth(forUnInitialDevices: 2),
                       title: 'From',
                       containerHeight: 0.05,
                     ),
