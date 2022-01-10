@@ -32,7 +32,11 @@ class _FlatPageState extends State<FlatPage> {
   }
 
   void _onSubmitted(){
-      _provider.state.data['date']=_provider.state.addDate();
+      _provider.state.data['date']=_provider.state.addCurrentDate();
+      if(_provider.state.validate()){
+
+
+      }
       _provider.canEdit=true;
       Navigator.of(context).pushReplacementNamed('review');
 

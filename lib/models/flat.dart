@@ -35,12 +35,24 @@ class Flat implements CommonState{
 };
 
   @override
-  String addDate(){
+  String addCurrentDate(){
     return DateTime.now().toIso8601String();
   }
 
   @override
   List<String> imageURL=[];
+
+  @override
+  bool validate() {
+    bool valid=true;
+    data.forEach((key, value) {
+      if (value is String && value==''||value is double && value==-1) {
+       valid=false;
+       return ;
+      }
+    });
+    return valid;
+  }
 
 
   //TODO:add location field
