@@ -7,7 +7,7 @@ import 'package:state_business/utils/theme.dart';
 import 'package:state_business/widget/backbuttonorange.dart';
 import 'package:state_business/widget/carousel_slider.dart';
 import 'package:state_business/widget/conditional_widget.dart';
-import 'package:state_business/widget/custom_text_field.dart';
+import 'package:state_business/widget/textfield_container.dart';
 import 'package:state_business/widget/titlecontainer.dart';
 
 class Review extends StatefulWidget {
@@ -40,7 +40,13 @@ class _ReviewState extends State<Review> {
         route:
         '${_provider.selectedState}/${_provider.openBusiness}/${_provider.selectedContracting}/${_provider.state.data['country']}/${_provider.state.data['city']}');
     server.pushData( _provider.state.data);
-    Navigator.of(context).pushNamed('result');
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (ctx) =>
+          ChangeNotifierProvider.value(
+            value: Provider.of<RealStateProvider>(context),
+            child:const Review(),
+          ),
+    ));
   }
 
   @override
@@ -102,16 +108,17 @@ class _ReviewState extends State<Review> {
                       paddingValue:
                           _responsive.responsiveWidth(forUnInitialDevices: 2.5),
                       condition: () => _dataKey.contains('title'),
-                      trueCase: CustomTextField(
+                      trueCase: TextFieldContainer(
+                        errorMsg  :'',
+                        formkey: GlobalKey(),
+                        width:0.4,
                         height: _responsive.responsiveHeight(
                             forUnInitialDevices: 6),
-                        hint: 'Title',
-                        suffix: Text(_provider.state.data['title'].toString()),
+                        hintText: 'Title',
+                        initialValue: _provider.state.data['title'].toString(),
                         onChanged: (value) {
                           _provider.state.data['title'] = value;
                         },
-                        width: _responsive.responsiveWidth(
-                            forUnInitialDevices: 90),
                       ),
                     ),
                     _verticalSpacer(responsive: _responsive),
@@ -124,156 +131,165 @@ class _ReviewState extends State<Review> {
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('price'),
-                          trueCase: CustomTextField(
-                            hint: 'Flyat',
-                            suffix:
-                                Text(_provider.state.data['price'].toString()),
-                            enable: _provider.canEdit,
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+                            hintText: 'Flyat',
+                            initialValue: _provider.state.data['price'].toString(),
+                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['price'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 40),
                           ),
                         ),
                         ConditionalWidget(
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('area m2'),
-                          trueCase: CustomTextField(
-                            suffix: Text(
-                                _provider.state.data['area m2'].toString()),
-                            hint: 'Area(m2)',
-                            enable: _provider.canEdit,
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+                            initialValue:
+                                _provider.state.data['area m2'].toString(),
+                            hintText: 'Area(m2)',
+                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['area m2'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 40),
                           ),
                         ),
                         ConditionalWidget(
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('area m2(net)'),
-                          trueCase: CustomTextField(
-                            hint: 'Area(m2)(net)',
-                            enable: _provider.canEdit,
-                            suffix: Text(_provider.state.data['area m2(net)']
-                                .toString()),
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+                            hintText: 'Area(m2)(net)',
+                            enabled: _provider.canEdit,
+                            initialValue: _provider.state.data['area m2(net)']
+                                .toString(),
                             onChanged: (value) {
                               _provider.state.data['area m2(net)'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 40),
                           ),
                         ),
                         ConditionalWidget(
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('date'),
-                          trueCase: CustomTextField(
-                            hint: 'Date',
-                            enable: _provider.canEdit,
-                            suffix: Text(_provider.state.data['date']),
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+                            hintText: 'Date',
+                            enabled: _provider.canEdit,
+                            initialValue: _provider.state.data['date'],
                             onChanged: (value) {
                               _provider.state.data['date'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 40),
                           ),
                         ),
                         ConditionalWidget(
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('tabu'),
-                          trueCase: CustomTextField(
-                            hint: 'Date',
-                            enable: _provider.canEdit,
-                            suffix: Text(_provider.state.data['tabu']),
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+                            hintText: 'Date',
+                            enabled: _provider.canEdit,
+                            initialValue: _provider.state.data['tabu'],
                             onChanged: (value) {
                               _provider.state.data['tabu'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 40),
                           ),
                         ),
                         ConditionalWidget(
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('heating'),
-                          trueCase: CustomTextField(
-                            hint: 'Heating',
-                            enable: _provider.canEdit,
-                            suffix: Text(_provider.state.data['heating']),
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+                            hintText: 'Heating',
+                            enabled: _provider.canEdit,
+                            initialValue: _provider.state.data['heating'],
                             onChanged: (value) {
                               _provider.state.data['heating'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 40),
                           ),
                         ),
                         ConditionalWidget(
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('state'),
-                          trueCase: CustomTextField(
-                            hint: 'State',
-                            enable: _provider.canEdit,
-                            suffix: Text(_provider.state.data['state']),
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+                            hintText: 'State',
+                            enabled: _provider.canEdit,
+                            initialValue: _provider.state.data['state'],
                             onChanged: (value) {
                               _provider.state.data['state'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 40),
                           ),
                         ),
                         ConditionalWidget(
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('from'),
-                          trueCase: CustomTextField(
-                            hint: 'From',
-                            enable: _provider.canEdit,
-                            suffix: Text(_provider.state.data['from']),
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+                            hintText: 'From',
+                            enabled: _provider.canEdit,
+                            initialValue: _provider.state.data['from'],
                             onChanged: (value) {
                               _provider.state.data['from'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 40),
                           ),
                         ),
                         ConditionalWidget(
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('Ads No'),
-                          trueCase: CustomTextField(
-                            hint: 'Ads No',
-                            enable: _provider.canEdit,
-                            suffix:
-                                Text(_provider.state.data['Ads No'].toString()),
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+                            hintText: 'Ads No',
+                            enabled: _provider.canEdit,
+                            initialValue:
+                                _provider.state.data['Ads No'].toString(),
                             onChanged: (value) {
                               _provider.state.data['Ads No'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 40),
+
                           ),
                         ),
                         ConditionalWidget(
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('location'),
-                          trueCase: CustomTextField(
-                            hint: 'location',
-                            enable: false,
-                            padding: 0.1,
-                            suffix:
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+                            hintText: 'location',
+                            enabled: false,
+                            presuffixIcon:
                                 Image.asset('assets/icons/Exclusion 22.png'),
                             onChanged: (value) {
                               _provider.state.data['location'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 40),
                           ),
                         ),
                       ],
@@ -288,153 +304,157 @@ class _ReviewState extends State<Review> {
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('NumberOfFloor'),
-                          trueCase: CustomTextField(
-                            padding: 0.05,
-                            hint: 'Floor#',
-                            suffix: Text(_provider.state.data['NumberOfFloor']
-                                .toString()),
-                            enable: _provider.canEdit,
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+                            hintText: 'Floor#',
+                            initialValue: _provider.state.data['NumberOfFloor']
+                                .toString(),
+                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['NumberOfFloor'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 20),
                           ),
                         ),
                         ConditionalWidget(
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('Banyo Number'),
-                          trueCase: CustomTextField(
-                            padding: 0.05,
-                            hint: 'Bath#',
-                            suffix: Text(_provider.state.data['Banyo Number']
-                                .toString()),
-                            enable: _provider.canEdit,
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+                            hintText: 'Bath#',
+                            initialValue: _provider.state.data['Banyo Number']
+                                .toString(),
+                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['Banyo Number'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 20),
                           ),
                         ),
                         ConditionalWidget(
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('age'),
-                          trueCase: CustomTextField(
-                            padding: 0.05,
-                            hint: 'Age#',
-                            suffix:
-                                Text(_provider.state.data['age'].toString()),
-                            enable: _provider.canEdit,
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+                            hintText: 'Age#',
+                            initialValue:
+                                _provider.state.data['age'].toString(),
+                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['age'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 20),
                           ),
                         ),
                         ConditionalWidget(
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('NumberOfFloor'),
-                          trueCase: CustomTextField(
-                            padding: 0.05,
-                            hint: 'Floors#',
-                            suffix: Text(_provider.state.data['NumberOfFloor']
-                                .toString()),
-                            enable: _provider.canEdit,
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+
+                            hintText: 'Floors#',
+                            initialValue:_provider.state.data['NumberOfFloor']
+                                .toString(),
+                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['NumberOfFloor'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 20),
                           ),
                         ),
                         ConditionalWidget(
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('aidat'),
-                          trueCase: CustomTextField(
-                            padding: 0.05,
-                            hint: 'Aidat#',
-                            suffix:
-                                Text(_provider.state.data['aidat'].toString()),
-                            enable: _provider.canEdit,
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+
+                            hintText: 'Aidat#',
+                            initialValue:
+                                _provider.state.data['aidat'].toString(),
+                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['aidat'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 20),
+
                           ),
                         ),
                         ConditionalWidget(
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('balkon'),
-                          trueCase: CustomTextField(
-                            padding: 0.05,
-                            hint: 'Balkon#',
-                            suffix:
-                                Text(_provider.state.data['balkon'].toString()),
-                            enable: _provider.canEdit,
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+                            hintText: 'Balkon#',
+                            initialValue:
+                                _provider.state.data['balkon'].toString(),
+                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['balkon'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 20),
                           ),
                         ),
                         ConditionalWidget(
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('numberOfRooms'),
-                          trueCase: CustomTextField(
-                            padding: 0.05,
-                            hint: 'Room#',
-                            suffix: Text(_provider.state.data['numberOfRooms']
-                                .toString()),
-                            enable: _provider.canEdit,
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+                            hintText: 'Room#',
+                            initialValue: _provider.state.data['numberOfRooms']
+                                .toString(),
+                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['numberOfRooms'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 20),
                           ),
                         ),
                         ConditionalWidget(
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('furnished'),
-                          trueCase: CustomTextField(
-                            padding: 0.05,
-                            hint: 'Furnished#',
-                            suffix: Text(
-                                _provider.state.data['furnished'].toString()),
-                            enable: _provider.canEdit,
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+
+                            formkey: GlobalKey(),
+                            width:0.4,
+                            hintText: 'Furnished#',
+                            initialValue:
+                                _provider.state.data['furnished'].toString(),
+                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['furnished'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 20),
                           ),
                         ),
                         ConditionalWidget(
                           paddingValue: _responsive.responsiveWidth(
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('swap'),
-                          trueCase: CustomTextField(
-                            padding: 0.05,
-                            hint: 'Swap#',
-                            suffix:
-                                Text(_provider.state.data['swap'].toString()),
-                            enable: _provider.canEdit,
+                          trueCase: TextFieldContainer(
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.4,
+                            hintText: 'Swap#',
+                            initialValue:
+                              _provider.state.data['swap'].toString(),
+                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['swap'] = value;
                             },
-                            width: _responsive.responsiveWidth(
-                                forUnInitialDevices: 20),
                           ),
                         ),
                       ],
@@ -444,17 +464,18 @@ class _ReviewState extends State<Review> {
                       paddingValue:
                           _responsive.responsiveWidth(forUnInitialDevices: 2.5),
                       condition: () => _dataKey.contains('description'),
-                      trueCase: CustomTextField(
+                      trueCase: TextFieldContainer(
+                        errorMsg  :'',
+                        formkey: GlobalKey(),
+                        width:0.4,
                         height: _responsive.responsiveHeight(
                             forUnInitialDevices: 6),
-                        hint: 'Description',
-                        suffix: Text(
-                            _provider.state.data['description'].toString()),
+                        hintText: 'Description',
+                        initialValue:
+                            _provider.state.data['description'].toString(),
                         onChanged: (value) {
                           _provider.state.data['description'] = value;
                         },
-                        width: _responsive.responsiveWidth(
-                            forUnInitialDevices: 90),
                       ),
                     ),
                     _verticalSpacer(responsive: _responsive),

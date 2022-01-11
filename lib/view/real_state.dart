@@ -4,12 +4,12 @@ import 'package:responsive_s/responsive_s.dart';
 import 'package:state_business/provider/real_state_provider.dart';
 import 'package:state_business/utils/flat_options.dart';
 import 'package:state_business/utils/theme.dart';
+import 'package:state_business/view/review.dart';
+import 'package:state_business/widget/careerWidget.dart';
 import 'package:state_business/widget/conditional_widget.dart';
 import 'package:state_business/widget/custom_app_bar.dart';
-import 'package:state_business/widget/custom_drop_down_menu.dart';
-import 'package:state_business/widget/custom_expanded_tile.dart';
-import 'package:state_business/widget/custom_text_field.dart';
 import 'package:state_business/widget/custom_switch_button.dart';
+import 'package:state_business/widget/textfield_container.dart';
 import 'package:state_business/widget/titlecontainer.dart';
 
 class FlatPage extends StatefulWidget {
@@ -25,20 +25,28 @@ class _FlatPageState extends State<FlatPage> {
   late List<String> _dataKey = _provider.state.data.keys.toList();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _responsive = Responsive(context);
     _provider = Provider.of<RealStateProvider>(context);
+    print(_provider.selectedContracting);
   }
 
   void _onSubmitted() {
     _provider.state.data['date'] = _provider.state.addCurrentDate();
     if (_provider.state.validate()) {
       _provider.canEdit = true;
-      Navigator.of(context).pushReplacementNamed('review');
-
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ChangeNotifierProvider.value(
+                child: const Review(),
+                value: _provider,
+              )));
     }
-
   }
 
   @override
@@ -52,8 +60,8 @@ class _FlatPageState extends State<FlatPage> {
             barTitle: _provider.selectedContracting,
             titleContainerHeight:
                 _responsive.responsiveWidth(forUnInitialDevices: 10),
-            titleContainerWidth:
-                _responsive.responsiveWidth(forUnInitialDevices: 20),
+            titleContainerWidth:null,
+            //     _responsive.responsiveWidth(forUnInitialDevices: 20),
             responsive: _responsive),
         body: SingleChildScrollView(
             child: Padding(
@@ -67,145 +75,98 @@ class _FlatPageState extends State<FlatPage> {
                         _responsive.responsiveHeight(forUnInitialDevices: 3),
                   ),
                   Wrap(
-                    runSpacing: 20,
+                    runSpacing: 10,
                     alignment: WrapAlignment.start,
                     runAlignment: WrapAlignment.start,
                     children: [
+
                       ConditionalWidget(
-                        paddingValue: _responsive.responsiveWidth(
-                            forUnInitialDevices: 2.5),
-                        condition: () => _dataKey.contains('country'),
-                        trueCase: CustomDropDownMenu(
-                          items: country,
-                          hint: const Text('Country'),
-                          onChanged: (value) {
-                            _provider.state.data['country'] = value;
-                          },
-                          width: _responsive.responsiveWidth(
-                              forUnInitialDevices: 40),
-                        ),
-                      ),
-                      ConditionalWidget(
-                        paddingValue: _responsive.responsiveWidth(
-                            forUnInitialDevices: 2.5),
-                        condition: () => _dataKey.contains('state'),
-                        trueCase: CustomDropDownMenu(
-                          items: status,
-                          hint: const Text('State'),
-                          onChanged: (value) {
-                            _provider.state.data['state'] = value;
-                          },
-                          width: _responsive.responsiveWidth(
-                              forUnInitialDevices: 40),
-                        ),
-                      ),
-                      ConditionalWidget(
-                        paddingValue: _responsive.responsiveWidth(
-                            forUnInitialDevices: 2.5),
-                        condition: () => _dataKey.contains('city'),
-                        trueCase: CustomDropDownMenu(
-                          items: city,
-                          hint: const Text('City'),
-                          onChanged: (value) {
-                            _provider.state.data['city'] = value;
-                          },
-                          width: _responsive.responsiveWidth(
-                              forUnInitialDevices: 40),
-                        ),
-                      ),
-                      ConditionalWidget(
-                        paddingValue: _responsive.responsiveWidth(
-                            forUnInitialDevices: 2.5),
-                        condition: () => _dataKey.contains('mahele'),
-                        trueCase: CustomDropDownMenu(
-                          items: mahele,
-                          hint: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Image.asset('assets/icons/Subtraction 368.png'),
-                              SizedBox(
-                                width: _responsive.responsiveWidth(
-                                    forUnInitialDevices: 2),
-                              ),
-                              const Text('Mahele'),
-                            ],
-                          ),
-                          onChanged: (value) {
-                            _provider.state.data['mahele'] = value;
-                          },
-                          width: _responsive.responsiveWidth(
-                              forUnInitialDevices: 40),
-                        ),
-                      ),
-                      ConditionalWidget(
-                        paddingValue: _responsive.responsiveWidth(
-                            forUnInitialDevices: 2.5),
-                        condition: () => _dataKey.contains('price'),
-                        trueCase: CustomTextField(
-                          hint: 'Price',
-                          onChanged: (value) {
-                            _provider.state.data['price'] = value;
-                          },
-                          width: _responsive.responsiveWidth(
-                              forUnInitialDevices: 40),
-                        ),
-                      ),
+                          paddingValue: _responsive.responsiveWidth(
+                              forUnInitialDevices: 2.5),
+                          condition: () => _dataKey.contains('price'),
+                          trueCase: TextFieldContainer(
+                            errorMsg: 'This field is requierd',
+                            formkey: GlobalKey(),
+                            fillcolor: textFieldColor,
+                            suffixIcon:SizedBox(height: _responsive.responsiveHeight(forUnInitialDevices: 0.05),) ,
+
+                            width: 0.4,
+                            height: 0.06,
+                            hintText: 'Price',
+                            onChanged: (value) {
+                              _provider.state.data['price'] = value;
+                            },
+                          )),
                       ConditionalWidget(
                         paddingValue: _responsive.responsiveWidth(
                             forUnInitialDevices: 2.5),
                         condition: () => _dataKey.contains('area m2(net)'),
-                        trueCase: CustomTextField(
-                          hint: 'Area(m2)(net)',
-                          enable: false,
+                        trueCase: TextFieldContainer(
+                          errorMsg: 'This field is requierd',
+                          formkey: GlobalKey(),
+                          suffixIcon:SizedBox(height: _responsive.responsiveHeight(forUnInitialDevices: 0.05),) ,
+
+                          fillcolor: textFieldColor,
+                          width: 0.4,
+                          height: 0.06,
                           onChanged: (value) {
                             _provider.state.data['area m2(net)'] = value;
                           },
-                          width: _responsive.responsiveWidth(
-                              forUnInitialDevices: 40),
+                          hintText: 'Area m2(net)',
                         ),
                       ),
                       ConditionalWidget(
                         paddingValue: _responsive.responsiveWidth(
                             forUnInitialDevices: 2.5),
                         condition: () => _dataKey.contains('area m2'),
-                        trueCase: CustomTextField(
-                          hint: 'Area(m2)',
-                          enable: false,
+                        trueCase: TextFieldContainer(
+                          hintText: 'Area m2',
+                          errorMsg: 'This field is requierd',
+                          formkey: GlobalKey(),
+                          suffixIcon:SizedBox(height: _responsive.responsiveHeight(forUnInitialDevices: 0.05),) ,
+
+                          fillcolor: textFieldColor,
+                          width: 0.4,
+                          height: 0.06,
                           onChanged: (value) {
                             _provider.state.data['area m2'] = value;
                           },
-                          width: _responsive.responsiveWidth(
-                              forUnInitialDevices: 40),
                         ),
                       ),
                       ConditionalWidget(
                         paddingValue: _responsive.responsiveWidth(
                             forUnInitialDevices: 2.5),
                         condition: () => _dataKey.contains('NumberOfFloor'),
-                        trueCase: CustomTextField(
-                          hint: 'Number Of Floor',
-                          enable: false,
-                          padding: 0.1,
-                          onChanged: (value) {
+                        trueCase: TextFieldContainer(
+                          onChanged: (value){
                             _provider.state.data['NumberOfFloor'] = value;
                           },
-                          width: _responsive.responsiveWidth(
-                              forUnInitialDevices: 40),
+                          hintText: 'NumberOfFloor',
+                          errorMsg: 'This field is requierd',
+                          formkey: GlobalKey(),
+                          suffixIcon:SizedBox(height: _responsive.responsiveHeight(forUnInitialDevices: 0.05),) ,
+
+                          fillcolor: textFieldColor,
+                          width: 0.4,
+                          height: 0.06,
                         ),
                       ),
                       ConditionalWidget(
                         paddingValue: _responsive.responsiveWidth(
                             forUnInitialDevices: 2.5),
                         condition: () => _dataKey.contains('Banyo Number'),
-                        trueCase: CustomTextField(
-                          padding: 0.1,
-                          hint: 'Banyo Number',
-                          enable: false,
-                          onChanged: (value) {
+                        trueCase: TextFieldContainer(
+                          hintText: 'Banyo Number',
+                          errorMsg: 'This field is requierd',
+                          formkey: GlobalKey(),
+                          fillcolor: textFieldColor,
+                          width: 0.4,
+                          height: 0.06,
+                          onChanged: (value){
                             _provider.state.data['Banyo Number'] = value;
                           },
-                          width: _responsive.responsiveWidth(
-                              forUnInitialDevices: 40),
+                          suffixIcon:SizedBox(height: _responsive.responsiveHeight(forUnInitialDevices: 0.05),) ,
+
                         ),
                       ),
                     ],
@@ -223,12 +184,17 @@ class _FlatPageState extends State<FlatPage> {
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              CustomTextField(
-                                padding: 0.1,
-                                hint: 'Balkon',
-                                enable: false,
-                                width: _responsive.responsiveWidth(
-                                    forUnInitialDevices: 22),
+                              TextFieldContainer(
+                                onChanged: (value){
+                                  _provider.state.data['Balkon'] = value;
+                                },
+                                enabled: false,
+                                hintText: 'Balkon',
+                                errorMsg: 'This field is requierd',
+                                formkey: GlobalKey(),
+                                fillcolor: textFieldColor,
+                                width: 0.2,
+                                height: 0.05,
                               ),
                               CustomSwitchButton(
                                 onChanged: (value) {
@@ -245,12 +211,17 @@ class _FlatPageState extends State<FlatPage> {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            CustomTextField(
-                              hint: 'Furnished',
-                              padding: 0.1,
-                              enable: false,
-                              width: _responsive.responsiveWidth(
-                                  forUnInitialDevices: 22),
+                            TextFieldContainer(
+                              onChanged: (value){
+                                _provider.state.data['furnished'] = value;
+                              },
+                              enabled: false,
+                              hintText: 'Furnished',
+                              errorMsg: 'This field is requierd',
+                              formkey: GlobalKey(),
+                              fillcolor: textFieldColor,
+                              width: 0.2,
+                              height: 0.05,
                             ),
                             CustomSwitchButton(
                               onChanged: (value) {
@@ -268,12 +239,17 @@ class _FlatPageState extends State<FlatPage> {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            CustomTextField(
-                              padding: 0.1,
-                              hint: 'Empty',
-                              enable: false,
-                              width: _responsive.responsiveWidth(
-                                  forUnInitialDevices: 22),
+                            TextFieldContainer(
+                              onChanged: (value){
+                                _provider.state.data['empty'] = value;
+                              },
+                              hintText: 'Empty',
+                              errorMsg: 'This field is requierd',
+                              formkey: GlobalKey(),
+                              fillcolor: textFieldColor,
+                              width: 0.2,
+                              enabled: false,
+                              height: 0.05,
                             ),
                             CustomSwitchButton(
                               onChanged: (value) {
@@ -291,12 +267,14 @@ class _FlatPageState extends State<FlatPage> {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            CustomTextField(
-                              padding: 0.1,
-                              hint: 'Kredit',
-                              enable: false,
-                              width: _responsive.responsiveWidth(
-                                  forUnInitialDevices: 22),
+                            TextFieldContainer(
+                              hintText: 'kredit',
+                              errorMsg: 'This field is requierd',
+                              formkey: GlobalKey(),
+                              fillcolor: textFieldColor,
+                              width: 0.2,
+                              enabled: false,
+                              height: 0.05,
                             ),
                             CustomSwitchButton(
                               onChanged: (value) {
@@ -314,12 +292,17 @@ class _FlatPageState extends State<FlatPage> {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            CustomTextField(
-                              padding: 0.1,
-                              hint: 'Takas',
-                              enable: false,
-                              width: _responsive.responsiveWidth(
-                                  forUnInitialDevices: 22),
+                            TextFieldContainer(
+                              onChanged: (value){
+                                _provider.state.data['takas'] = value;
+                              },
+                              hintText: 'Takas',
+                              errorMsg: 'This field is requierd',
+                              formkey: GlobalKey(),
+                              fillcolor: textFieldColor,
+                              width: 0.2,
+                              enabled: false,
+                              height: 0.05,
                             ),
                             CustomSwitchButton(
                               onChanged: (value) {
@@ -336,164 +319,154 @@ class _FlatPageState extends State<FlatPage> {
                   ConditionalWidget(
                     paddingValue: 0.1,
                     condition: () => _dataKey.contains('numberOfRooms'),
-                    trueCase: CustomExpandedTile(
-                      radius: 7,
-                      children: numberOfRoom,
-                      containerWidth: 0.1,
-                      subTitle: _provider.state.data['numberOfRooms'],
-                      onTap: (value) {
-                        setState(() {
-                          _provider.state.data['numberOfRooms'] = value;
-                        });
+                    trueCase: CareerWidget(
+                      width: 0.1,
+                      onTap: (value){
+                        _provider.state.data['numberOfRooms'] = value;
                       },
-                      spacing:
-                          _responsive.responsiveWidth(forUnInitialDevices: 2),
-                      title: 'Number of Room',
-                      containerHeight: 0.05,
+                      spacing:_responsive.responsiveWidth(forUnInitialDevices:5),
+                      fontSize: 12,
+                      radius:5,
+                      // height: _responsive.responsiveHeight(forUnInitialDevices: 6),
+                      hintText: 'Number of Rooms',
+                      items: numberOfRoom,
                     ),
                   ),
                   _VerticalSpacer(_responsive),
                   ConditionalWidget(
                     paddingValue: 0.1,
                     condition: () => _dataKey.contains('age'),
-                    trueCase: CustomExpandedTile(
+                    trueCase: CareerWidget(
                       radius: 7,
-                      children: age,
-                      containerWidth: 0.15,
-                      subTitle: _provider.state.data['age'],
+                      items: age,
+                      width: 0.1,
                       onTap: (value) {
-                        setState(() {
+
                           _provider.state.data['age'] = value;
-                        });
+
                       },
                       spacing:
                           _responsive.responsiveWidth(forUnInitialDevices: 2),
-                      title: 'Age',
-                      containerHeight: 0.05,
+                      hintText: 'Age',
                     ),
                   ),
                   _VerticalSpacer(_responsive),
                   ConditionalWidget(
                     paddingValue: 0.4,
                     condition: () => _dataKey.contains('floorType'),
-                    trueCase: CustomExpandedTile(
+                    trueCase: CareerWidget(
                       radius: 7,
-                      children: floorType,
-                      containerWidth: 0.2,
-                      subTitle: _provider.state.data['floorType'],
+                      items: floorType,
+                      width: 0.2,
                       onTap: (value) {
-                        setState(() {
                           _provider.state.data['floorType'] = value;
-                        });
                       },
                       fontSize: 14,
                       spacing:
                           _responsive.responsiveWidth(forUnInitialDevices: 2),
-                      title: 'Floor Type',
-                      containerHeight: 0.08,
+                      hintText: 'Floor Type',
                     ),
                   ),
                   _VerticalSpacer(_responsive),
                   ConditionalWidget(
                     paddingValue: 0.1,
                     condition: () => _dataKey.contains('heating'),
-                    trueCase: CustomExpandedTile(
+                    trueCase: CareerWidget(
                       radius: 7,
-                      children: heating,
-                      containerWidth: 0.16,
-                      subTitle: _provider.state.data['heating'],
+                      items: heating,
+                      width: 0.16,
                       onTap: (value) {
-                        setState(() {
                           _provider.state.data['heating'] = value;
-                        });
                       },
                       fontSize: 13,
                       spacing:
                           _responsive.responsiveWidth(forUnInitialDevices: 2),
-                      title: 'heating',
-                      containerHeight: 0.05,
+                      hintText: 'heating',
                     ),
                   ),
                   _VerticalSpacer(_responsive),
                   ConditionalWidget(
                     paddingValue: 0.1,
                     condition: () => _dataKey.contains('tabu'),
-                    trueCase: CustomExpandedTile(
+                    trueCase: CareerWidget(
                       radius: 7,
-                      children: tabuMode,
-                      containerWidth: 0.16,
-                      subTitle: _provider.state.data['tabu'],
+                      items: tabuMode,
+                      width: 0.16,
+                      // subTitle: _provider.state.data['tabu'],
                       onTap: (value) {
-                        setState(() {
                           _provider.state.data['tabu'] = value;
-                        });
                       },
                       fontSize: 13,
                       spacing:
                           _responsive.responsiveWidth(forUnInitialDevices: 2),
-                      title: 'Tabu',
-                      containerHeight: 0.05,
+                      hintText: 'Tabu',
                     ),
                   ),
                   _VerticalSpacer(_responsive),
                   ConditionalWidget(
                     paddingValue: 0.1,
                     condition: () => _dataKey.contains('from'),
-                    trueCase: CustomExpandedTile(
+                    trueCase: CareerWidget(
+                      hintText: 'Form',
+                      spacing:_responsive.responsiveWidth(forUnInitialDevices: 5) ,
                       radius: 7,
-                      children: from,
-                      containerWidth: 0.15,
+                      items: from,
+                      width: 0.15,
                       fontSize: 15,
-                      subTitle: _provider.state.data['from'],
+                      // subTitle: _provider.state.data['from'],
                       onTap: (value) {
-                        setState(() {
                           _provider.state.data['from'] = value;
-                        });
                       },
-                      spacing:
-                          _responsive.responsiveWidth(forUnInitialDevices: 2),
-                      title: 'From',
-                      containerHeight: 0.05,
                     ),
                   ),
                   _VerticalSpacer(_responsive),
                   ConditionalWidget(
                       condition: () => _dataKey.contains('location'),
                       paddingValue: 0,
-                      trueCase: CustomTextField(
-                        hint: 'location',
-                        padding: 0.1,
-                        suffix: Image.asset('assets/icons/Exclusion 22.png'),
-                        width: _responsive.responsiveWidth(
-                            forUnInitialDevices: 80),
-                        height: _responsive.responsiveHeight(
-                            forUnInitialDevices: 7),
+                      trueCase: TextFieldContainer(
+                        hintText: 'Location',
+                        //TODO:change this images
+                        suffixIcon:  Image.asset('assets/icons/Exclusion 22.png'),
+                        errorMsg: 'This field is requierd',
+                        formkey: GlobalKey(),
+                        fillcolor: textFieldColor,
+                        width: 0.9,
+                        onChanged: (value){
+                          _provider.state.data['location']=value;
+                        },
+                        height: 0.07,
                       )),
                   _VerticalSpacer(_responsive),
                   ConditionalWidget(
                       condition: () => _dataKey.contains('title'),
                       paddingValue: 0,
-                      trueCase: CustomTextField(
-                        hint: 'Title',
-                        padding: 0.1,
-                        width: _responsive.responsiveWidth(
-                            forUnInitialDevices: 80),
-                        height: _responsive.responsiveHeight(
-                            forUnInitialDevices: 7),
+                      trueCase: TextFieldContainer(
+                          suffixIcon:SizedBox(height: _responsive.responsiveHeight(forUnInitialDevices: 0.07),) ,
+                        onChanged: (value){
+                          _provider.state.data['title']=value;
+                        },
+                        hintText: 'Title',
+                        errorMsg: 'This field is requierd',
+                        formkey: GlobalKey(),
+                        fillcolor: textFieldColor,
+                        width: 0.9,
+                        height: 0.07,
                       )),
                   _VerticalSpacer(_responsive),
                   ConditionalWidget(
                       condition: () => _dataKey.contains('description'),
                       paddingValue: 0,
-                      trueCase: CustomTextField(
-                        hint: 'Description',
-                        padding: 0.1,
-                        minLines: 3,
+                      trueCase: TextFieldContainer(
+                        onChanged: (value){
+                          _provider.state.data['description']=value;
+                        },
+                        hintText: 'Description',
+                        errorMsg: 'This field is requierd',
+                        formkey: GlobalKey(),
+                        fillcolor: textFieldColor,
+                        width: 0.9,
+                        height: 0.1,
                         maxLines: 6,
-                        width: _responsive.responsiveWidth(
-                            forUnInitialDevices: 80),
-                        height: _responsive.responsiveHeight(
-                            forUnInitialDevices: 15),
                       )),
                   _VerticalSpacer(_responsive),
                   InkWell(

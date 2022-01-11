@@ -4,6 +4,7 @@ import 'package:responsive_s/responsive_s.dart';
 import 'package:state_business/provider/real_state_provider.dart';
 import 'package:state_business/utils/real_state.dart';
 import 'package:state_business/utils/theme.dart';
+import 'package:state_business/view/real_state.dart';
 import 'package:state_business/widget/custom_app_bar.dart';
 import 'package:state_business/widget/elevated_container.dart';
 import 'package:state_business/widget/real_state_icon.dart';
@@ -69,11 +70,12 @@ class _AddRealStateState extends State<AddRealState> {
                       children: List.generate(
                           saleState.length,
                           (index) => RealStateIcon(
+                            imageLocation:saleState[index]['imageUrl'] ?? '' ,
                               textCondition:
                                   Provider.of<RealStateProvider>(context)
                                       .selectedState,
                               responsive: _responsive,
-                              text: saleState[index]))),
+                              text: saleState[index]['name']??''))),
                   height: _responsive.responsiveHeight(forUnInitialDevices: 19),
                   width: _responsive.responsiveWidth(forUnInitialDevices: 90)),
               SizedBox(
@@ -87,11 +89,12 @@ class _AddRealStateState extends State<AddRealState> {
                         children: List.generate(
                             businessState.length,
                             (index) => RealStateIcon(
+                              imageLocation:  businessState[index]['imageUrl']??'assets/icons/realStateIcon.png',
                                 textCondition:
                                     Provider.of<RealStateProvider>(context)
                                         .selectedBusiness,
                                 responsive: _responsive,
-                                text: businessState[index]))),
+                                text: businessState[index]['name']??''))),
                     height:
                         _responsive.responsiveHeight(forUnInitialDevices: 19),
                     width:
@@ -122,13 +125,15 @@ class _AddRealStateState extends State<AddRealState> {
                                 .shownList
                                 .length,
                             (index) => RealStateIcon(
+                              imageLocation: Provider.of<RealStateProvider>(context)
+                                  .shownList[index]['imageUrl']??'assets/icons/realStateIcon.png' ,
                                 textCondition:
                                     Provider.of<RealStateProvider>(context)
                                         .selectedContracting,
                                 iconSize: 12,
                                 responsive: _responsive,
                                 text: Provider.of<RealStateProvider>(context)
-                                    .shownList[index]))),
+                                    .shownList[index]['name']??''))),
                     // height: _responsive.responsiveHeight(forUnInitialDevices: 19),
                     width:
                         _responsive.responsiveWidth(forUnInitialDevices: 90)),
@@ -144,7 +149,13 @@ class _AddRealStateState extends State<AddRealState> {
                                 .selectedContracting !=
                             ''
                     ? () {
-                        Navigator.of(context).pushReplacementNamed('FlatPage');
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (ctx) =>
+                             ChangeNotifierProvider.value(
+                               value: Provider.of<RealStateProvider>(context),
+                               child:const FlatPage(),
+                             ),
+                        ));
                       }
                     : null,
                 child: TitleContainer(
@@ -164,3 +175,6 @@ class _AddRealStateState extends State<AddRealState> {
     );
   }
 }
+
+
+

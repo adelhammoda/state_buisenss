@@ -11,10 +11,11 @@ class RealStateIcon extends StatelessWidget {
   final String text;
   final double iconSize;
   final String textCondition;
-
+  final String imageLocation;
   const RealStateIcon({
     Key? key,
     required this.responsive,
+    required this.imageLocation,
     required this.text,
     required this.textCondition,
     this.iconSize = 17,
@@ -34,7 +35,7 @@ class RealStateIcon extends StatelessWidget {
         _changeStateIcon(context, text);
       },
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -50,11 +51,7 @@ class RealStateIcon extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(
-                      textCondition == text
-                          ? 'assets/icons/Group 1874.png'
-                          : 'assets/icons/realStateIcon.png',
-                    ),
+                    image: AssetImage(imageLocation),
                   ),
                   border: textCondition == text
                       ? Border.all(
@@ -62,7 +59,7 @@ class RealStateIcon extends StatelessWidget {
                         )
                       : null,
                   borderRadius: BorderRadius.circular(10),
-                  color: iconColor),
+                  color:textCondition != text? iconColor:grayColor),
               width: responsive.responsiveWidth(forUnInitialDevices: iconSize),
               height: responsive.responsiveWidth(forUnInitialDevices: iconSize),
               alignment: Alignment.center,

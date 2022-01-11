@@ -4,6 +4,7 @@ import 'package:responsive_s/responsive_s.dart';
 import 'package:state_business/provider/real_state_provider.dart';
 import 'package:state_business/utils/flat_options.dart';
 import 'package:state_business/utils/theme.dart';
+import 'package:state_business/view/result.dart';
 import 'package:state_business/widget/custom_app_bar.dart';
 import 'package:state_business/widget/custom_drop_down_menu.dart';
 import 'package:state_business/widget/custom_expanded_tile.dart';
@@ -29,7 +30,12 @@ class _FilterState extends State<Filter> {
   }
 
   void _onSubmitted(){
-    Navigator.of(context).pushNamed('result');
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context)=>ChangeNotifierProvider.value(
+        value: Provider.of<RealStateProvider>(context),
+        child:const Result(),
+      ),)
+    );
   }
 
   @override

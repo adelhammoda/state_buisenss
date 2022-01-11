@@ -16,24 +16,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  ChangeNotifierProvider(
-    create: (_) => RealStateProvider(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'business',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        routes: {
-          '/': (_) =>  const AddRealState(),
-        'FlatPage': (_) => const FlatPage(),
-        'review': (_) => ChangeNotifierProvider(
-              create: (_) => RealStateProvider(),
-              child: const Review(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'business',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      routes: {
+        '/': (_) => ChangeNotifierProvider(
+              child: const AddRealState(),
+              create: (context) => RealStateProvider(),
             ),
+        'FlatPage': (_) => const FlatPage(),
+        'review': (_) => const Review(),
         'result': (_) => const Result(),
         'filter': (_) => const Filter()
       },
-    ));
+    );
   }
 }

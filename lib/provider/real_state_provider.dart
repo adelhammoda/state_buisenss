@@ -10,7 +10,7 @@ class RealStateProvider with ChangeNotifier {
   String selectedContracting = '';
   bool openBusiness = false;
   bool openContracting = false;
-  List<String> shownList = [];
+  List<Map<String, String>> shownList = [];
   bool canEdit = false;
 
   void deleteImage(int index) {
@@ -23,41 +23,60 @@ class RealStateProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  bool checkIfContain(String str, List<Map<String, String>> data) {
+    bool res = false;
+    for (var element in data) {
+      if (element['name']?.compareTo(str) == 0) {
+        res = true;
+        break;
+      }
+    }
+    return res;
+  }
+
   void changeSelectedState(String stateName) {
-     if(saleState.contains(stateName)){
-      selectedState =selectedState.compareTo(stateName) == 0? '':stateName;
+    if (checkIfContain(stateName, saleState)) {
+      selectedState = selectedState.compareTo(stateName) == 0 ? '' : stateName;
       if (selectedState != '') {
         openBusiness = true;
       } else {
         openBusiness = false;
+        openContracting = false;
+        shownList=[];
+        selectedContracting='';
+        selectedBusiness='';
       }
       notifyListeners();
     }
     else {
-       if (businessState.contains(stateName)) {
-      selectedBusiness =
-          selectedBusiness.compareTo(stateName) == 0 ? '' : stateName;
-      for (int index = 0; index < businessState.length; index++) {
-        if (selectedBusiness.compareTo(businessState[index]) == 0) {
-          shownList = List.from(chosseList[index]);
+      if ( checkIfContain(stateName, businessState)) {
+        selectedBusiness =
+        selectedBusiness.compareTo(stateName) == 0 ? '' : stateName;
+        for (int index = 0; index < businessState.length; index++) {
+          if (selectedBusiness.compareTo(
+              businessState[index]['name'] ?? '--') == 0) {
+            shownList = List.from(chosseList[index]);
+          }
         }
-      }
-      if (selectedBusiness != '') {
-        openContracting = true;
+        if (selectedBusiness != '') {
+          openContracting = true;
+        } else {
+          openContracting = false;
+          selectedContracting='';
+          shownList=[];
+        }
+        notifyListeners();
+        // return;
+      } else
+      if (checkIfContain(stateName, residential) ||checkIfContain(stateName, commercial) ) {
+        selectedContracting =
+        selectedContracting.compareTo(stateName) == 0 ? '' : stateName;
+        notifyListeners();
+        // return;
       } else {
-        openContracting = false;
+        return;
       }
-      notifyListeners();
-      // return;
-    } else if (residential.contains(stateName) ||commercial.contains(stateName) ) {
-      selectedContracting =
-          selectedContracting.compareTo(stateName) == 0 ? '' : stateName;
-      notifyListeners();
-      // return;
-    } else {
-      return ;
     }
-     }
 
     notifyListeners();
   }

@@ -16,10 +16,9 @@ class Flat implements CommonState{
     'NumberOfFloor':'',
     'numberOfRooms':'',
     'floorType':'',
-    'mahele':'',
+    // 'mahele':'',
     'age':'',
     'heating':'',
-    'Floor type':'',
     'location':'',
     'description':'',
     'empty':false,
@@ -47,6 +46,7 @@ class Flat implements CommonState{
     bool valid=true;
     data.forEach((key, value) {
       if (value is String && value==''||value is double && value==-1) {
+        print('=== $key ===');
        valid=false;
        return ;
       }

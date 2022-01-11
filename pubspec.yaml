@@ -41,6 +41,7 @@ dependencies:
   firebase_storage:
   intl:
   firebase_database:
+  firebase_core:
   cloud_firestore:
 
 

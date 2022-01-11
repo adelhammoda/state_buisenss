@@ -5,19 +5,23 @@ import 'package:state_business/utils/theme.dart';
 
 class TitleContainer extends StatefulWidget {
   double height;
-  double width;
+  double? width;
   double? borderRadiustopLeft;
   double? borderRadiustopRight;
   Color? color;
   Color? textColor;
+  Alignment? alignment;
   double? textContianerWidth;
   String? text;
   double? fontSize;
   double? allBorderRadius;
+  EdgeInsets? padding;
   TitleContainer({
     required this.height,
+    this.padding,
     required this.width,
     required this.text,
+    this.alignment,
     this.borderRadiustopLeft,
     this.fontSize,
     this.allBorderRadius,
@@ -37,8 +41,10 @@ class _TitleContainerState extends State<TitleContainer> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Container(
+      padding: widget.padding,
+      alignment: widget.alignment,
       height: screenHeight * widget.height,
-      width: screenWidth * widget.width,
+      width: widget.width==null?null:screenWidth * widget.width!,
       decoration: BoxDecoration(
         color: widget.color == null ? whiteColor : widget.color!,
         borderRadius: BorderRadius.only(
@@ -58,12 +64,15 @@ class _TitleContainerState extends State<TitleContainer> {
       ),
       child: Center(
         child: widget.textContianerWidth!=null? Container(
+          alignment: Alignment.center,
           width: screenWidth * widget.textContianerWidth! - screenWidth * 0.04,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Center(
               child: Text(
                 widget.text!,
+                textAlign: TextAlign.center,
+                softWrap: true,
                 style: TextStyle(
                   color: widget.textColor??titleContainerText.color,
                   fontSize:widget.fontSize?? titleContainerText.fontSize,
@@ -75,6 +84,7 @@ class _TitleContainerState extends State<TitleContainer> {
         ):Center(
               child: Text(
                 widget.text!,
+                textAlign: TextAlign.center,
                 style: TextStyle(
                     color: widget.textColor??titleContainerText.color,
                     fontSize: widget.fontSize?? titleContainerText.fontSize,

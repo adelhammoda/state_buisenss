@@ -7,7 +7,7 @@ import 'backbuttonorange.dart';
 PreferredSizeWidget customAppBar({
   Key? key,
   required double titleContainerHeight,
-  required double titleContainerWidth,
+  required double? titleContainerWidth,
   required String barTitle,
   required Responsive responsive,
  void Function()? onBackButtonPressed,
@@ -23,13 +23,15 @@ PreferredSizeWidget customAppBar({
         ),
       ],
     ),
-    title: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    titleSpacing: responsive.responsiveWidth(forUnInitialDevices: 10),
+    title: Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
             width: titleContainerWidth,
             height: titleContainerHeight,
             child: TitleContainer(
+              padding: EdgeInsets.all(5),
               text: barTitle,
               height: titleContainerHeight,
               width: titleContainerWidth,
