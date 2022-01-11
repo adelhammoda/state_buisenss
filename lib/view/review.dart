@@ -109,13 +109,20 @@ class _ReviewState extends State<Review> {
                           _responsive.responsiveWidth(forUnInitialDevices: 2.5),
                       condition: () => _dataKey.contains('title'),
                       trueCase: TextFieldContainer(
+                        suffixIcon: const SizedBox(),
+
+
+                        hintTextSize: 13,
+
+                        fillcolor: textFieldColor,
+                        enabled: _provider.canEdit,
                         errorMsg  :'',
                         formkey: GlobalKey(),
-                        width:0.4,
-                        height: _responsive.responsiveHeight(
-                            forUnInitialDevices: 6),
+                        width:0.9,
+                        // readOnly: true,
+                        // height: 0.03,
                         hintText: 'Title',
-                        initialValue: _provider.state.data['title'].toString(),
+                        initialValue:'Title:'+ _provider.state.data['title'].toString(),
                         onChanged: (value) {
                           _provider.state.data['title'] = value;
                         },
@@ -124,6 +131,7 @@ class _ReviewState extends State<Review> {
                     _verticalSpacer(responsive: _responsive),
                     Wrap(
                       runSpacing: 20,
+                      spacing: _responsive.responsiveWidth(forUnInitialDevices:0),
                       alignment: WrapAlignment.start,
                       runAlignment: WrapAlignment.start,
                       children: [
@@ -132,12 +140,18 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('price'),
                           trueCase: TextFieldContainer(
+                            suffixIcon: const SizedBox(),
+
+
+                            hintTextSize: 13,
+
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
                             width:0.4,
                             hintText: 'Flyat',
-                            initialValue: _provider.state.data['price'].toString(),
-                            enabled: _provider.canEdit,
+                            initialValue:'Flyat:'+ _provider.state.data['price'].toString(),
                             onChanged: (value) {
                               _provider.state.data['price'] = value;
                             },
@@ -148,13 +162,19 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('area m2'),
                           trueCase: TextFieldContainer(
+                            suffixIcon: const SizedBox(),
+
+
+                            hintTextSize: 13,
+
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
                             width:0.4,
                             initialValue:
-                                _provider.state.data['area m2'].toString(),
+                            'Area(m2)'  + _provider.state.data['area m2'].toString(),
                             hintText: 'Area(m2)',
-                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['area m2'] = value;
                             },
@@ -165,12 +185,19 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('area m2(net)'),
                           trueCase: TextFieldContainer(
+                            suffixIcon: const SizedBox(),
+
+
+                            hintTextSize: 13,
+
+
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
                             width:0.4,
                             hintText: 'Area(m2)(net)',
-                            enabled: _provider.canEdit,
-                            initialValue: _provider.state.data['area m2(net)']
+                            initialValue:'Area(m2)(net)'+ _provider.state.data['area m2(net)']
                                 .toString(),
                             onChanged: (value) {
                               _provider.state.data['area m2(net)'] = value;
@@ -182,12 +209,19 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('date'),
                           trueCase: TextFieldContainer(
+                            suffixIcon: const SizedBox(),
+
+
+                            hintTextSize: 13,
+
+
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
                             width:0.4,
                             hintText: 'Date',
-                            enabled: _provider.canEdit,
-                            initialValue: _provider.state.data['date'],
+                            initialValue:'Date'+ _provider.state.data['date'],
                             onChanged: (value) {
                               _provider.state.data['date'] = value;
                             },
@@ -198,12 +232,19 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('tabu'),
                           trueCase: TextFieldContainer(
+                            suffixIcon: const SizedBox(),
+
+
+                            hintTextSize: 13,
+
+
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
                             width:0.4,
-                            hintText: 'Date',
-                            enabled: _provider.canEdit,
-                            initialValue: _provider.state.data['tabu'],
+                            hintText: 'Tabu',
+                            initialValue:'Tabu:'+ _provider.state.data['tabu'],
                             onChanged: (value) {
                               _provider.state.data['tabu'] = value;
                             },
@@ -214,12 +255,19 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('heating'),
                           trueCase: TextFieldContainer(
+                            suffixIcon: const SizedBox(),
+
+
+                            hintTextSize: 13,
+
+
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
                             width:0.4,
                             hintText: 'Heating',
-                            enabled: _provider.canEdit,
-                            initialValue: _provider.state.data['heating'],
+                            initialValue:'Heating'+ _provider.state.data['heating'],
                             onChanged: (value) {
                               _provider.state.data['heating'] = value;
                             },
@@ -230,12 +278,19 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('state'),
                           trueCase: TextFieldContainer(
+                            suffixIcon: const SizedBox(),
+
+
+                            hintTextSize: 13,
+
+
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
                             width:0.4,
                             hintText: 'State',
-                            enabled: _provider.canEdit,
-                            initialValue: _provider.state.data['state'],
+                            initialValue:'State'+ _provider.state.data['state'],
                             onChanged: (value) {
                               _provider.state.data['state'] = value;
                             },
@@ -246,12 +301,19 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('from'),
                           trueCase: TextFieldContainer(
+                            suffixIcon: const SizedBox(),
+
+
+                            hintTextSize: 13,
+
+
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
                             width:0.4,
                             hintText: 'From',
-                            enabled: _provider.canEdit,
-                            initialValue: _provider.state.data['from'],
+                            initialValue: 'From'+ _provider.state.data['from'],
                             onChanged: (value) {
                               _provider.state.data['from'] = value;
                             },
@@ -262,13 +324,20 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('Ads No'),
                           trueCase: TextFieldContainer(
+                            suffixIcon: const SizedBox(),
+
+
+                            hintTextSize: 13,
+
+
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
                             width:0.4,
                             hintText: 'Ads No',
-                            enabled: _provider.canEdit,
                             initialValue:
-                                _provider.state.data['Ads No'].toString(),
+                            'Ads No'+  _provider.state.data['Ads No'].toString(),
                             onChanged: (value) {
                               _provider.state.data['Ads No'] = value;
                             },
@@ -280,11 +349,18 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 2.5),
                           condition: () => _dataKey.contains('location'),
                           trueCase: TextFieldContainer(
+                            suffixIcon: const SizedBox(),
+
+
+                            hintTextSize: 13,
+
+
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
-                            width:0.4,
+                            width:0.9,
                             hintText: 'location',
-                            enabled: false,
                             presuffixIcon:
                                 Image.asset('assets/icons/Exclusion 22.png'),
                             onChanged: (value) {
@@ -305,13 +381,22 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('NumberOfFloor'),
                           trueCase: TextFieldContainer(
+                            suffixIcon:  Center(
+                              child: Text('Floor: '+ _provider.state.data['NumberOfFloor'].toString()),
+                            ),
+
+
+                            hintTextSize: 13,
+
+
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
-                            width:0.4,
+                            width:0.2,
                             hintText: 'Floor#',
-                            initialValue: _provider.state.data['NumberOfFloor']
+                            initialValue:'Floor#'+ _provider.state.data['NumberOfFloor']
                                 .toString(),
-                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['NumberOfFloor'] = value;
                             },
@@ -322,13 +407,22 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('Banyo Number'),
                           trueCase: TextFieldContainer(
+                            suffixIcon:  Center(
+                              child: Text('Bath: '+ _provider.state.data['Banyo Number'].toString()),
+                            ),
+
+
+                            hintTextSize: 13,
+
+
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
-                            width:0.4,
+                            width:0.2,
                             hintText: 'Bath#',
-                            initialValue: _provider.state.data['Banyo Number']
+                            initialValue:'Bath#'+ _provider.state.data['Banyo Number']
                                 .toString(),
-                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['Banyo Number'] = value;
                             },
@@ -339,13 +433,21 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('age'),
                           trueCase: TextFieldContainer(
+                            suffixIcon:  Center(
+                              child: Text('Age: '+ _provider.state.data['age'].toString()),
+                            ),
+
+                            hintTextSize: 13,
+
+
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
-                            width:0.4,
+                            width:0.2,
                             hintText: 'Age#',
                             initialValue:
-                                _provider.state.data['age'].toString(),
-                            enabled: _provider.canEdit,
+                            'Age#'+_provider.state.data['age'].toString(),
                             onChanged: (value) {
                               _provider.state.data['age'] = value;
                             },
@@ -356,14 +458,23 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('NumberOfFloor'),
                           trueCase: TextFieldContainer(
+                            suffixIcon:  Center(
+                              child: Text('Floors: '+ _provider.state.data['NumberOfFloor'].toString()),
+                            ),
+
+
+                            hintTextSize: 13,
+
+
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
-                            width:0.4,
+                            width:0.2,
 
                             hintText: 'Floors#',
-                            initialValue:_provider.state.data['NumberOfFloor']
+                            initialValue:'Floors#'+_provider.state.data['NumberOfFloor']
                                 .toString(),
-                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['NumberOfFloor'] = value;
                             },
@@ -374,14 +485,22 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('aidat'),
                           trueCase: TextFieldContainer(
+                            suffixIcon:  Center(
+                              child: Text('Aidat: \n'+ _provider.state.data['aidat'].toString()),
+                            ),
+
+                            hintTextSize: 13,
+
+
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
-                            width:0.4,
+                            width:0.2,
 
                             hintText: 'Aidat#',
-                            initialValue:
+                            initialValue:'Aidat#'+
                                 _provider.state.data['aidat'].toString(),
-                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['aidat'] = value;
                             },
@@ -393,13 +512,22 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('balkon'),
                           trueCase: TextFieldContainer(
+                            suffixIcon:  Center(
+                              child: Text('Balkon: \n'+ _provider.state.data['balkon'].toString()),
+                            ),
+
+
+                            hintTextSize: 13,
+
+
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
-                            width:0.4,
+                            width:0.2,
                             hintText: 'Balkon#',
-                            initialValue:
+                            initialValue:'Balkon#'+
                                 _provider.state.data['balkon'].toString(),
-                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['balkon'] = value;
                             },
@@ -410,13 +538,22 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('numberOfRooms'),
                           trueCase: TextFieldContainer(
+                            suffixIcon:  Center(
+                              child: Text('Room: \n'+ _provider.state.data['numberOfRooms'].toString()),
+                            ),
+
+
+                            hintTextSize: 13,
+
+
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
-                            width:0.4,
+                            width:0.2,
                             hintText: 'Room#',
-                            initialValue: _provider.state.data['numberOfRooms']
+                            initialValue:'Room#'+ _provider.state.data['numberOfRooms']
                                 .toString(),
-                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['numberOfRooms'] = value;
                             },
@@ -427,14 +564,18 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('furnished'),
                           trueCase: TextFieldContainer(
-                            errorMsg  :'',
-
-                            formkey: GlobalKey(),
-                            width:0.4,
-                            hintText: 'Furnished#',
-                            initialValue:
-                                _provider.state.data['furnished'].toString(),
+                            suffixIcon:  Center(
+                              child: Text('Furnished: \n'+ _provider.state.data['furnished'].toString()),
+                            ),
+                            hintTextSize: 9,
+                            fillcolor: textFieldColor,
                             enabled: _provider.canEdit,
+                            errorMsg  :'',
+                            formkey: GlobalKey(),
+                            width:0.2,
+                            hintText: 'Furnished#',
+                            initialValue:'Furnished# '+
+                                _provider.state.data['furnished'].toString(),
                             onChanged: (value) {
                               _provider.state.data['furnished'] = value;
                             },
@@ -445,13 +586,15 @@ class _ReviewState extends State<Review> {
                               forUnInitialDevices: 1.1),
                           condition: () => _dataKey.contains('swap'),
                           trueCase: TextFieldContainer(
+                            hintTextSize: 10,
+                            fillcolor: textFieldColor,
+                            enabled: _provider.canEdit,
                             errorMsg  :'',
                             formkey: GlobalKey(),
-                            width:0.4,
+                            width:0.2,
                             hintText: 'Swap#',
-                            initialValue:
+                            initialValue:'Swap#'+
                               _provider.state.data['swap'].toString(),
-                            enabled: _provider.canEdit,
                             onChanged: (value) {
                               _provider.state.data['swap'] = value;
                             },
@@ -465,11 +608,16 @@ class _ReviewState extends State<Review> {
                           _responsive.responsiveWidth(forUnInitialDevices: 2.5),
                       condition: () => _dataKey.contains('description'),
                       trueCase: TextFieldContainer(
+                        suffixIcon: const SizedBox(),
+
+
+                        hintTextSize: 13,
+
+                            fillcolor: textFieldColor,
+                        enabled: _provider.canEdit,
                         errorMsg  :'',
                         formkey: GlobalKey(),
-                        width:0.4,
-                        height: _responsive.responsiveHeight(
-                            forUnInitialDevices: 6),
+                        width:0.9,
                         hintText: 'Description',
                         initialValue:
                             _provider.state.data['description'].toString(),

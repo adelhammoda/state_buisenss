@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (_) => ChangeNotifierProvider(
-              child: const AddRealState(),
+              child: const Review(),
               create: (context) => RealStateProvider(),
             ),
         'FlatPage': (_) => const FlatPage(),
